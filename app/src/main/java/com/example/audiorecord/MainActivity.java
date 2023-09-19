@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -12,17 +13,35 @@ import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
 import kotlin.math.MathKt;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1; // ここで定義
 
+    private LineChart mChart;
+
+    private final int[] colors = new int[]{
+            Color.BLUE,
+            Color.GRAY,
+            Color.MAGENTA};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mChart = findViewById(R.id.chart);
+        mChart.setData(new LineData());
+        mChart.getDescription().setEnabled(false);
+        mChart.setDrawGridBackground(true);
+        mChart.getAxisRight().setEnabled(false);
 
         requestAudioPermission();
 
